@@ -1,5 +1,4 @@
-
-// вестор(путь, чекусумма, set<id-тегов> )
+//Добавить sqlite- это точно потребуеться
 
 /*	md5sum
 File: "for tests\\test file.txt" 	 		5d41402abc4b2a76b9719d911017c592
@@ -12,7 +11,7 @@ File: "for tests\\folder 2\\file (3).txt" 	410aafaed362fbdbeac4006be9f49c57
 */
 
 use std::path;
-use std::path::Path;
+// use std::path::Path;
 use std::collections::HashSet;
 
 // const TEST_FILE_NAME: &str = "test file.txt";
@@ -23,7 +22,7 @@ type TagsList<'a> = Vec<&'a str>; //важен id, по этому Vec
 // https://stackoverflow.com/questions/45339659/why-does-this-rust-type-alias-need-a-lifetime-parameter
 
 #[derive(Debug)]
-struct file_tag<'a> {
+struct FileWithTags<'a> {
 	check_sum: &'a str, //Ожидался lifetime параметр, почему?
 	//HashSet or B-treeSet?
 	tags: HashSet<u32>, 
@@ -39,17 +38,21 @@ fn main() {
 	all_tags_list.push("fun");
 	all_tags_list.push("book");
 	all_tags_list.push("other");
+//--
+	let mut set_tags_of_firt_row = HashSet::new();
+		set_tags_of_firt_row.insert(3);
+		set_tags_of_firt_row.insert(4);
 
+
+	let firt_row = FileWithTags{
+		check_sum:"5d41402abc4b2a76b9719d911017c592",
+		tags: set_tags_of_firt_row, //возможно порождаеться множество копий одинаковых set'ов
+		path: path::Path::new("for tests\\test file.txt")
+	};
 //======initialize=end===
 
-	// let db: Vec<,>
+	let mut db: Vec<FileWithTags> = Vec::new();
+		db.push(firt_row);
 
-	let mut set_tags_of_firt_row = HashSet::new();
-	set_tags_of_firt_row.insert(3);
-	set_tags_of_firt_row.insert(4);
-
-
-	let firt_row = file_tag{ check_sum:"5d41402abc4b2a76b9719d911017c592", tags: set_tags_of_firt_row, path: path::Path::new("for tests\\test file.txt") };
-
-    println!("Hello, world!");
+	println!("Hello, world!");
 }
