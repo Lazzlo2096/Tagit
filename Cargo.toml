@@ -1,0 +1,6 @@
+[package]
+name = "tagit"
+version = "0.1.0"
+authors = ["Lazzlo2096 <lazzlo2096@yandex.ru>"]
+
+[dependencies]
